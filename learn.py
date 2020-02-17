@@ -3,19 +3,25 @@
 # @Author  : lx-rookie
 
 
-import socket
+from socket import *
 
-host = '192.168.3.243'
+ipaddr = '127.0.0.1'
 port = 2404
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind((host, port))
-server.listen(5)
+back_log = 5
 
-conn,addr = server.accept()
-msg = conn.recv(1024)
-print('客户端发来消息是%s' %msg.decode('utf-8'))
-conn.send(msg.upper())
+tcp_server = socket(AF_INET, SOCK_STREAM)
+tcp_server.bind((ipaddr, port))
+tcp_server.listen(back_log)
 
-conn.close()
-server.close()
+while True:
+    conn,addr = tcp_server.accept()
+    while True:
+        data = conn.recv(1024)
+        if not data:
+            break
+        print("data is %s" %data.decode('utf-8'))
+        conn.send(data.upper())
+
+    conn.close()
+tcp_server.close()
 
