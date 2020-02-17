@@ -5,7 +5,7 @@
 
 import socket
 
-host = '127.0.0.1'
+host = '192.168.3.243'
 port = 2404
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((host, port))
